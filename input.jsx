@@ -26,9 +26,13 @@ App.Input = class Input extends React.Component {
               value={this.props.input.recipe}
               onChange={onChangeRecipe}/>
             <datalist id="recipes">
-            	{Object.keys(this.recipes).map(function(recipe) {
-                    return <option key={recipe}>{recipe}</option>;
-                })}
+              { Object.entries(this.recipes)
+              .filter(function([recipeName, recipe]) {
+                return recipe.hidden !== true
+              })
+              .map(function([recipeName, recipe]) {
+                    return <option key={recipeName}>{recipeName}</option>;
+              }) }
             </datalist>
             producing at a rate of
             <input
